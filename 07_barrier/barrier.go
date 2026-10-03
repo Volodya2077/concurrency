@@ -12,6 +12,9 @@ type Barrier struct {
 }
 
 func New(n int) *Barrier {
+	if n <= 0 {
+		panic(" ")
+	}
 	return &Barrier{need: uint32(n)}
 }
 

@@ -9,6 +9,7 @@ const (
 	free = iota
 	held
 	contended
+	spinIterations = 100
 )
 
 type Mutex struct {
@@ -21,7 +22,7 @@ func (m *Mutex) Lock() {
 		return
 	}
 	// это типо медлнный
-	for i := 0; i < 100; i++ {
+	for i := 0; i < spinIterations; i++ {
 		if atomic.LoadUint32(&m.state) == free && m.TryLock() {
 			return
 		}

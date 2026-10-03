@@ -31,7 +31,7 @@ func (s *TTAS) Lock() {
 		for s.locked.Load() {
 
 		}
-		for s.TryLock() {
+		if s.TryLock() {
 			return
 		}
 	}

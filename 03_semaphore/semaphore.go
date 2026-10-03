@@ -19,10 +19,12 @@ func New(n int) *Semaphore {
 }
 
 func (s *Semaphore) Acquire() {
-	if s.TryAcquire() {
-		return
+	for {
+		if s.TryAcquire() {
+			return
+		}
+		futex.Wait(&s.permits, 0)
 	}
-	futex.Wait(&s.permits, 0)
 }
 
 func (s *Semaphore) TryAcquire() bool {

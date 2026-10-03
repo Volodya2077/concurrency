@@ -10,7 +10,7 @@ type WaitGroup struct {
 }
 
 func (wg *WaitGroup) Add(delta int) {
-	atomic.AddUint32(&wg.count, uint32(delta))
+
 	v := atomic.AddUint32(&wg.count, uint32(delta))
 	if int32(v) < 0 {
 		panic("счетчик ушел в минус")
